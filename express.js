@@ -1,6 +1,12 @@
 const express = require('express')
 const app = express()
 
+
+//metodos para que entienda express los formatos
+app.use(express.text()) //entiende texto
+app.use(express.json()) //entiende json
+app.use(express.urlencoded({extended: false})) //entiende datos del formulario
+
 app.get('/html', (req, res) => {
     res.sendFile('./views/http.html', {
         root: __dirname
@@ -52,6 +58,28 @@ app.get('/response', (req, res) => {
 app.get('/isAlive', (req, res) => {
     res.status(204) // todo bien, pero no devuelvo un contenido
 })
+
+//request
+
+app.post('/product', (req, res) => {
+    console.log(req.body) //contenido del cliente
+    console.log(req.headers)
+    res.send('product')
+})
+
+//params 
+app.get('/user/:name', (req, res) => {
+    console.log(req.params.name)
+    res.send('params')
+})
+
+//params siempre es un string
+app.get('/add/:x/:y', (req, res) => {
+    console.log(req.params.x, req.params.y)
+    const sum = Number(req.params.x + req.params.y)
+    res.send(`suma ${sum}`)
+})
+
 
 app.use((req, res) => { //en caso de no encontrar las rutas va tomar esta.
     res.status(404).send('not found')
