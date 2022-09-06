@@ -19,23 +19,23 @@ app.get('/', (req, res) => {
 
 //metodos http
 
-app.get('/user', (req, res) => {
+app.get('/users', (req, res) => {
     res.send('usuarios')
 })
 
-app.post('/user', (req, res) => {
+app.post('/users', (req, res) => {
     res.send('creando usuario')
 })
 
-app.put('/user', (req, res) => {
+app.put('/users', (req, res) => {
     res.send('actualizando usuario') 
 })
 
-app.patch('/user', (req, res) => {
+app.patch('/users', (req, res) => {
     res.send('actualizando una parte del usuario') 
 })
 
-app.delete('/user', (req, res) => {
+app.delete('/users', (req, res) => {
     res.send('eliminando usuario')
 })
 
@@ -80,6 +80,12 @@ app.get('/add/:x/:y', (req, res) => {
     res.send(`suma ${sum}`)
 })
 
+//queries
+app.get('/queries', (req, res) => {
+    console.log(req.query) //devuelve un objeto
+    res.send(`queries`)
+})
+
 
 app.use((req, res) => { //en caso de no encontrar las rutas va tomar esta.
     res.status(404).send('not found')
@@ -87,4 +93,6 @@ app.use((req, res) => { //en caso de no encontrar las rutas va tomar esta.
 
 
 
-app.listen(3000)
+app.listen(3000, () => {
+    console.log('server on')
+})
